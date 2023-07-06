@@ -30,7 +30,7 @@ fi
 URL="https://${1}"
 
 # get CHALLENGE
-CHALLENGE=$(curl -s -X POST -H "Content-Type: application/json" -d "{ \"request\":{ \"action\":\"challenge\", \"user\":\"${USER}\", \"version\":\"1.2\" } }" ${CURL_OPTIONS} --ciphers "${CURLOPT_SSL_CIPHER_LIST}" ${URL}/api | cut -d\: -f3 | cut -d\" -f2)
+CHALLENGE=$(curl -s -X POST -H "Content-Type: application/json" -d "{ \"request\":{ \"action\":\"challenge\", \"user\":\"${USER}\", \"version\":\"1.2\" } }" ${CURL_OPTIONS} --ciphers "${CURLOPT_SSL_CIPHER_LIST}" ${URL}/api | grep "\"challenge\":" | cut -d\: -f3 | cut -d\" -f2)
 [ "${CHALLENGE}" ] || {
   echo "ERROR retrieving CHALLENGE"
   exit 2
